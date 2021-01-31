@@ -21,7 +21,7 @@ exports.updated = () => {
                         script: {
                             exec: [
                                 "pm.test('Some other test', function () {",
-                                '    pm.environment.set("demo_id", jsonData.id);',
+                                "    pm.environment.set('demo_id', pm.response.json().demo_id);",
                                 '});',
                                 "pm.test('<PDT TEST> post:/postman-galaxy/v1 [code: 201] schema is valid', function () {",
                                 '    if (pm.response.code !== 201){',
