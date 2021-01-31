@@ -1,0 +1,184 @@
+swagger: '2.0'
+host: demo-api.syngenta-digital.com
+schemes:
+    - https
+basePath: /
+info:
+    title: Demo API
+    version: 1.0.0
+    description: API for Postman Galaxy Demo
+    contact:
+        name: Syngenta Digital
+        email: developer@syngenta-digital.com
+        url: 'https://developer.syngenta-digital.com/'
+tags:
+    -
+      name: Demo
+      description: Demo endpoint
+paths:
+    /postman-galaxy/v1:
+        post:
+            tags:
+                - Demo
+            operationId: PostDemo
+            deprecated: false
+            summary: Post a demo
+            description: Demo of the post
+            responses:
+                201:
+                    description: Plan successfully posted
+                    schema:
+                        $ref: '#/definitions/v1-demo-response'
+                400:
+                    description: Malformed request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+                401:
+                    description: Unathorized request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+            parameters:
+                -
+                    required: true
+                    description: demo body
+                    name: body
+                    in: body
+                    schema:
+                        $ref: '#/definitions/v1-post-demo-request'
+            consumes:
+                - application/json
+            produces:
+                - application/json
+        get:
+            tags:
+                - Demo
+            operationId: GetDemo
+            deprecated: false
+            summary: Get a demo response
+            description: Get a demo response
+            parameters:
+                -
+                    in: query
+                    name: id
+                    description: The id of the demo
+                    required: true
+                    minimum: 1
+                    type: string
+            responses:
+                200:
+                    description: Demo was retrieved
+                    schema:
+                        $ref: '#/definitions/v1-demo-response'
+                400:
+                    description: Malformed request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+                401:
+                    description: Unathorized request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+            produces:
+                - application/json
+        patch:
+            tags:
+                - Demo
+            operationId: PatchDemo
+            deprecated: false
+            summary: Update a demo
+            description: Update a demo
+            parameters:
+                -
+                    in: query
+                    name: id
+                    description: The id of the demo
+                    required: true
+                    minimum: 1
+                    type: string
+                -
+                    name: body
+                    in: body
+                    description: demo body
+                    schema:
+                        $ref: '#/definitions/v1-patch-demo-request'
+            responses:
+                200:
+                    description: Plan successfully posted
+                    schema:
+                        $ref: '#/definitions/v1-demo-response'
+                400:
+                    description: Malformed request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+                401:
+                    description: Unathorized request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+            consumes:
+                - application/json
+            produces:
+                - application/json
+        delete:
+            tags:
+                - Demo
+            operationId: DeleteDemo
+            deprecated: false
+            summary: Delete a demo
+            description: Deleting a demo
+            parameters:
+                -
+                    in: query
+                    name: id
+                    description: The id of the demo
+                    required: true
+                    minimum: 1
+                    type: string
+            responses:
+                200:
+                    description: Demo successfully delete
+                    schema:
+                        $ref: '#/definitions/v1-demo-response'
+                400:
+                    description: Malformed request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+                401:
+                    description: Unathorized request
+                    schema:
+                        $ref: '#/definitions/v1-400-error-response'
+            produces:
+                - application/json
+definitions:
+    v1-demo-model:
+        title: v1-demo-model
+        type: object
+        properties:
+            id:
+                type: string
+            demo:
+                type: boolean
+    v1-post-demo-request:
+        title: v1-post-demo-request
+        allOf:
+            - $ref: '#/definitions/v1-demo-model'
+            - required:
+                    - demo
+    v1-patch-demo-request:
+        title: v1-patch-demo-request
+        allOf:
+            - $ref: '#/definitions/v1-demo-model'
+    v1-demo-response:
+        title: v1-demo-response
+        type: object
+        allOf:
+            - $ref: '#/definitions/v1-demo-model'
+            - required:
+                    - id
+                    - demo
+    v1-400-error-response:
+        title: v1-400-error-response
+        type: object
+        properties:
+            errors:
+                type: array
+                items:
+                    type: string

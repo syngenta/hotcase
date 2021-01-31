@@ -1,0 +1,13 @@
+.scannerwork
+.gitignore
+.npmrc
+.nvmrc
+.github
+.circleci
+.tags
+*.tgz
+package-lock.json
+README.md
+test
+node_modules
+sonar-project.properties

@@ -1,0 +1,99 @@
+{
+    "name": "@syngenta-digital/pdt",
+    "author": "Paul Cruse, Enginering Lead Syngenta",
+    "main": "src/index.js",
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/syngenta-digital/pdt-node.git"
+    },
+    "bugs": {
+        "url": "https://github.com/syngenta-digital/pdt-node/issues"
+    },
+    "bin": {
+        "pdt": "bin/pdt"
+    },
+    "scripts": {
+        "lint": "eslint src/**",
+        "test": "unittest=true nyc mocha --recursive",
+        "report": "nyc report"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "js-yaml": "^4.0.0",
+        "json-schema-ref-parser": "^9.0.7",
+        "minimist": "^1.2.5",
+        "yaml": "^1.10.0"
+    },
+    "devDependencies": {
+        "chai": "^4.2.0",
+        "eslint": "^7.18.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-config-prettier": "^7.2.0",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "mocha": "^8.2.1",
+        "mocha-junit-reporter": "^2.0.0",
+        "mocha-multi-reporters": "^1.5.1",
+        "mochawesome": "^6.2.1",
+        "nyc": "^15.1.0",
+        "prettier": "^2.2.1",
+        "sinon": "^9.2.4"
+    },
+    "keywords": [
+        "postman",
+        "cicd",
+        "documentation-tests",
+        "syngenta-digital"
+    ],
+    "engines": {
+        "node": ">=12.14.1"
+    },
+    "nyc": {
+        "temp-directory": "./node_modules/.nyc_output"
+    },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "mocha": true
+        },
+        "parserOptions": {
+            "ecmaVersion": 2018
+        },
+        "plugins": [
+            "prettier"
+        ],
+        "extends": [
+            "plugin:prettier/recommended"
+        ],
+        "rules": {
+            "prettier/prettier": [
+                "warn",
+                {
+                    "trailingComma": "none",
+                    "printWidth": 120,
+                    "tabWidth": 4,
+                    "singleQuote": true,
+                    "bracketSpacing": false,
+                    "arrowParens": "always"
+                }
+            ],
+            "prefer-destructuring": 0,
+            "eqeqeq": "error",
+            "no-console": 0,
+            "guard-for-in": 0,
+            "no-await-in-loop": 0,
+            "no-restricted-syntax": 0,
+            "no-underscore-dangle": 0,
+            "camelcase": 0,
+            "global-require": 0,
+            "no-throw-literal": 0,
+            "no-param-reassign": 0,
+            "class-methods-use-this": 0,
+            "no-plusplus": 0
+        }
+    }
+}

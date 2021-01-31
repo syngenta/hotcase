@@ -1,0 +1,104 @@
+version: 2.1
+orbs:
+    aws-cli: circleci/aws-cli@1.2.1
+    slack: circleci/slack@3.4.2
+    sonarcloud: sonarsource/sonarcloud@1.0.2
+commands:
+    node-install:
+        steps:
+            - run: npm ci
+    node-linter:
+        steps:
+            - run: npm run lint -- --format html --output-file ./coverage/lint/index.html
+            - store_artifacts:
+                path: ./coverage
+    node-test:
+        steps:
+            - run:
+                when: always
+                command: npm run test -- --reporter mocha-multi-reporters --reporter-options configFile=./test/reporter-config.json
+                environment:
+                    MOCHAWESOME_REPORTFILENAME: index.html
+                    MOCHAWESOME_REPORTDIR: ./coverage/unit-test
+            - store_test_results:
+                path: ./coverage/reports
+            - store_artifacts:
+                path: ./coverage
+    node-report-lcov:
+        node-report-lcov:
+        steps:
+            - run: npm run report -- --reporter=lcov
+            - store_artifacts:
+                path: ./coverage
+    node-report-html:
+        node-report-lcov:
+        steps:
+            - run: npm run report -- --reporter=html
+            - store_artifacts:
+                path: ./coverage
+    publish-results:
+        steps:
+            - run: aws s3 sync ./coverage s3://tools-test-reports.syndpe.com/$CIRCLE_PROJECT_REPONAME --delete
+            - run: aws cloudfront create-invalidation --distribution-id E38VEFEW0CRHJD --paths "/*"
+    npm-deploy:
+        steps:
+            - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            - run: npm version $CIRCLE_TAG --allow-same-version --no-git-tag-version
+            - run: npm publish --access public
+    slack-status:
+        steps:
+            - slack/status:
+                mentions: '${CIRCLE_USERNAME}, version=$CIRCLE_TAG'
+    slack-error:
+        steps:
+            - slack/status:
+                fail_only: true
+                mentions: '${CIRCLE_USERNAME}'
+jobs:
+    install-build-test:
+        docker:
+            - image: node:12
+        steps:
+            - checkout
+            - node-install
+            - aws-cli/setup
+            - node-linter
+            - node-test
+            - node-report-lcov
+            - node-report-html
+            - publish-results
+            - sonarcloud/scan
+            - slack-error
+    install-build-deploy:
+        docker:
+            - image: node:12
+        steps:
+            - checkout
+            - node-install
+            - npm-deploy
+            - slack-status
+workflows:
+    install-build-deploy:
+        jobs:
+            - install-build-deploy:
+                context:
+                    - tools-cicd
+                    - sonarcloud-token
+                    - npm-org-token
+                filters:
+                    tags:
+                        only: /.*/
+                    branches:
+                        ignore: /.*/
+    install-build-test:
+        jobs:
+            - install-build-test:
+                context:
+                    - tools-cicd
+                    - sonarcloud-token
+                    - npm-org-token
+                filters:
+                    tags:
+                        ignore: /.*/
+                    branches:
+                        ignore: /dependabot.*/

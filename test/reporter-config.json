@@ -1,0 +1,6 @@
+{
+    "reporterEnabled": "mocha-junit-reporter, mochawesome",
+    "mochaJunitReporterReporterOptions": {
+        "mochaFile": "./coverage/reports/report.xml"
+    }
+}
