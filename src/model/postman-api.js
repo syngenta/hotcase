@@ -1,6 +1,40 @@
 const fs = require('fs');
 const axios = require('axios');
 
+exports.getWorkspaces = async (api_key) => {
+    const options = {
+        method: 'GET',
+        headers: {'x-api-key': api_key},
+        url: `https://api.getpostman.com/workspaces`
+    };
+    try {
+        const {data} = await axios(options);
+        return data.workspaces.length ? data.workspaces : [];
+    } catch (error) {
+        console.error('There was a problem with your request to POSTMAN API; check your API Key or workspace name');
+        console.error(error);
+        throw error;
+    }
+};
+
+exports.getSingleWorkspace = async (api_key, workspace_id) => {
+    const options = {
+        method: 'GET',
+        headers: {'x-api-key': api_key},
+        url: `https://api.getpostman.com/workspaces/${workspace_id}`
+    };
+    try {
+        const {data} = await axios(options);
+        return data.workspace && data.workspace.collections.length
+            ? data.workspace
+            : {collections: [], environments: []};
+    } catch (error) {
+        console.error('There was a problem with your request to POSTMAN API; check your API Key or workspace name');
+        console.error(error);
+        throw error;
+    }
+};
+
 exports.getCollection = async (api_key, collection_id) => {
     const options = {
         method: 'GET',

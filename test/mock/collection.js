@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 exports.get = async () => {
-    const file = await fs.readFileSync(`${process.cwd()}/test/mock/mock.postman_collection.json`, 'utf8');
+    const file = await fs.readFileSync(`${process.cwd()}/test/mock/files/mock.postman_collection.json`, 'utf8');
     return JSON.parse(file);
 };
 

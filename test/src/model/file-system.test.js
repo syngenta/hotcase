@@ -11,7 +11,7 @@ describe('Test File System Model', () => {
         await fileSystem.deleteFile(file_name);
     });
     describe('read yaml file', async () => {
-        const file_name = 'test/mock/openapi.yml';
+        const file_name = 'test/mock/files/openapi.yml';
         const ymlObj = await fileSystem.loadYaml(file_name);
         assert.deepEqual(ymlObj, {
             openapi: '3.0.0',

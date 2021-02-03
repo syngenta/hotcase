@@ -8,6 +8,13 @@ describe('Test Args Class', () => {
         it('has _args object', () => {
             assert.equal(true, '_args' in args);
             assert.deepEqual(args._args, {
+                bail: true,
+                collection_name: 'some collection name',
+                environment_id: 'environment id',
+                environment_name: 'environment name',
+                run_newman: true,
+                workspace_id: 'some workspace id',
+                workspace_name: 'some workspace',
                 collection_id: '1111-222-333',
                 collection_file: '/file/test/file',
                 docs: 'docs/test/dock',
@@ -21,6 +28,27 @@ describe('Test Args Class', () => {
         });
         it('has collection_file', () => {
             assert.equal(args.collection_file, mockArguments.getFullArguments()['collection-file']);
+        });
+        it('has collection_name', () => {
+            assert.equal(args.collection_name, mockArguments.getFullArguments()['collection-name']);
+        });
+        it('has workspace_id', () => {
+            assert.equal(args.workspace_id, mockArguments.getFullArguments()['workspace-id']);
+        });
+        it('has workspace_name', () => {
+            assert.equal(args.workspace_name, mockArguments.getFullArguments()['workspace-name']);
+        });
+        it('has environment_id', () => {
+            assert.equal(args.environment_id, mockArguments.getFullArguments()['environment-id']);
+        });
+        it('has environment_name', () => {
+            assert.equal(args.environment_name, mockArguments.getFullArguments()['environment-name']);
+        });
+        it('has run_newman', () => {
+            assert.equal(args.run_newman, mockArguments.getFullArguments()['run-newman']);
+        });
+        it('has bail', () => {
+            assert.equal(args.bail, mockArguments.getFullArguments()['bail']);
         });
         it('has docs', () => {
             assert.equal(args.docs, mockArguments.getFullArguments()['doc-path']);
@@ -40,6 +68,13 @@ describe('Test Args Class', () => {
         it('has _args object', () => {
             assert.equal(true, '_args' in args);
             assert.deepEqual(args._args, {
+                bail: true,
+                collection_name: 'some collection name',
+                environment_id: 'environment id',
+                environment_name: 'environment name',
+                run_newman: true,
+                workspace_id: 'some workspace id',
+                workspace_name: 'some workspace',
                 collection_id: '1111-222-333',
                 collection_file: '/file/test/file',
                 docs: 'docs/test/dock',
@@ -49,10 +84,10 @@ describe('Test Args Class', () => {
             });
         });
         it('has collection_id', () => {
-            assert.equal(args.collection_id, mockArguments.getShortArguments().i);
+            assert.equal(args.collection_id, mockArguments.getShortArguments().ci);
         });
         it('has collection_file', () => {
-            assert.equal(args.collection_file, mockArguments.getShortArguments().f);
+            assert.equal(args.collection_file, mockArguments.getShortArguments().cf);
         });
         it('has docs', () => {
             assert.equal(args.docs, mockArguments.getShortArguments().d);
@@ -66,18 +101,64 @@ describe('Test Args Class', () => {
         it('has clean up', () => {
             assert.equal(args.clean, mockArguments.getShortArguments().c);
         });
+        it('has collection_name', () => {
+            assert.equal(args.collection_name, mockArguments.getShortArguments().cn);
+        });
+        it('has workspace_id', () => {
+            assert.equal(args.workspace_id, mockArguments.getShortArguments().wi);
+        });
+        it('has workspace_name', () => {
+            assert.equal(args.workspace_name, mockArguments.getShortArguments().wn);
+        });
+        it('has environment_id', () => {
+            assert.equal(args.environment_id, mockArguments.getShortArguments().ei);
+        });
+        it('has environment_name', () => {
+            assert.equal(args.environment_name, mockArguments.getShortArguments().en);
+        });
+        it('has run_newman', () => {
+            assert.equal(args.run_newman, mockArguments.getShortArguments().rn);
+        });
+        it('has bail', () => {
+            assert.equal(args.bail, mockArguments.getShortArguments().b);
+        });
     });
     describe('test mutable attributes', () => {
         const args = new Args(mockArguments.getShortArguments());
         it('collection_id is mutable', () => {
-            assert.equal(args.collection_id, mockArguments.getShortArguments().i);
+            assert.equal(args.collection_id, mockArguments.getShortArguments().ci);
             args.collection_id = 'some-id';
             assert.equal(args.collection_id, 'some-id');
         });
         it('collection_file is mutable', () => {
-            assert.equal(args.collection_file, mockArguments.getShortArguments().f);
+            assert.equal(args.collection_file, mockArguments.getShortArguments().cf);
             args.collection_file = 'some-file';
             assert.equal(args.collection_file, 'some-file');
+        });
+        it('collection_name is mutable', () => {
+            assert.equal(args.collection_name, mockArguments.getShortArguments().cn);
+            args.collection_name = 'some-collection';
+            assert.equal(args.collection_name, 'some-collection');
+        });
+        it('workspace_name is mutable', () => {
+            assert.equal(args.workspace_name, mockArguments.getShortArguments().wn);
+            args.workspace_name = 'some-workspace';
+            assert.equal(args.workspace_name, 'some-workspace');
+        });
+        it('workspace_id is mutable', () => {
+            assert.equal(args.workspace_id, mockArguments.getShortArguments().wi);
+            args.workspace_id = 'some-workspace-id';
+            assert.equal(args.workspace_id, 'some-workspace-id');
+        });
+        it('environment_name is mutable', () => {
+            assert.equal(args.environment_name, mockArguments.getShortArguments().en);
+            args.environment_name = 'some-environment';
+            assert.equal(args.environment_name, 'some-environment');
+        });
+        it('environment_id is mutable', () => {
+            assert.equal(args.environment_id, mockArguments.getShortArguments().ei);
+            args.environment_id = 'some-environment-id';
+            assert.equal(args.environment_id, 'some-environment-id');
         });
         it('docs is not mutable', () => {
             assert.equal(args.docs, mockArguments.getShortArguments().d);
@@ -89,15 +170,25 @@ describe('Test Args Class', () => {
             args.api_key = 'some-api_key';
             assert.notEqual(args.api_key, 'some-api_key');
         });
-        it('api key is not mutable', () => {
+        it('push is not mutable', () => {
             assert.equal(args.push, mockArguments.getShortArguments().p);
             args.push = 'some-push';
             assert.notEqual(args.push, 'some-push');
         });
-        it('api key is not mutable', () => {
+        it('clean is not mutable', () => {
             assert.equal(args.clean, mockArguments.getShortArguments().c);
             args.clean = 'some-clean';
             assert.notEqual(args.clean, 'some-clean');
+        });
+        it('bail is not mutable', () => {
+            assert.equal(args.bail, mockArguments.getShortArguments().b);
+            args.bail = 'some-clean';
+            assert.notEqual(args.bail, 'some-clean');
+        });
+        it('run_newman is not mutable', () => {
+            assert.equal(args.run_newman, mockArguments.getShortArguments().rn);
+            args.run_newman = 'some-clean';
+            assert.notEqual(args.run_newman, 'some-clean');
         });
     });
 });

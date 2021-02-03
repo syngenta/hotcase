@@ -15,10 +15,16 @@ The postman documentation tester is simple tool to test your openapi or swagger 
 * Will work with both OpenAPI and Swagger docs
 * Able to push changes up to remote collection
 * Able to work with multiple collections and openapi/swagger files
+* Don't need to go searching for collection ids and environment ids, just use the names
+* Able to invoke newman directly from this script
 
 ## Installation & Usage
 
 ```bash
+npx @syngenta-digital/pdt --workspace-name "Some Workspace" --collection-name "Some Collection" --environment-name "some environment" --doc-path openapi.yml --api-key $POSTMAN_API_KEY --push --clean-up --run-newman --bail
+
+# or if you have specific collection ids you want to tes
+
 $ npx @syngenta-digital/pdt --collection-id  some-collection-id --doc-path test/mock/openapi.yml --api-key $POSTMAN_API_KEY --push -clean-up
 
 # or if you have the collection locally exported

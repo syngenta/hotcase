@@ -1,7 +1,0 @@
-# Local File Example
-npx @syngenta-digital/pdt --collection-file  test/mock/mock.postman_collection.json --doc-path test/mock/openapi.yml
-newman run test/mock/mock.postman_collection.json -e test/mock/demo.postman_environment.json
-
-# Remote Collection Example
-npx @syngenta-digital/pdt --collection-id  8869631-02aa3403-d56a-42e7-964b-2b5f5794f0e3 --doc-path test/mock/openapi.yml --api-key $POSTMAN_API_KEY --push -clean-up
-newman run "https://api.getpostman.com/collections/8869631-02aa3403-d56a-42e7-964b-2b5f5794f0e3?apikey=$POSTMAN_API_KEY" -e "https://api.getpostman.com/environments/8869631-cd6d69c9-4ce3-4baa-94a6-14b0d6d2bc96?apikey=$POSTMAN_API_KEY"
