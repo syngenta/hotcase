@@ -23,7 +23,7 @@ The postman documentation tester is simple tool to test your openapi or swagger 
 ```bash
 npx @syngenta-digital/pdt --workspace-name "Some Workspace" --collection-name "Some Collection" --environment-name "some environment" --doc-path openapi.yml --api-key $POSTMAN_API_KEY --push --clean-up --run-newman --bail
 
-# or if you have specific collection ids you want to tes
+# or if you have a specific collection id already
 
 $ npx @syngenta-digital/pdt --collection-id  some-collection-id --doc-path test/mock/openapi.yml --api-key $POSTMAN_API_KEY --push -clean-up
 
@@ -37,9 +37,14 @@ newman run "https://api.getpostman.com/collections/$POSTMAN_COLLECTION_ID?apikey
 
 Flag Name             | Short    | Required              | Description
 :-----------          | :------- | :-----------          | :-----------
-`collection-id`       | i        | if no file provided   | The collection uid from Postman
-`collection-file`     | f        | if no id provided     | File path to the collection json
+`workspace-name`      | wn       | no                    | The name of the workspace (case sensitive)
+`environment-name`    | en       | if run-newman provided| The name of the environment (case sensitive)
+`collection-name`     | cn       | if workspace provided | The name of collection (case sensitive)
+`collection-id`       | ci       | if no file provided   | The collection uid from Postman
+`collection-file`     | cf       | if no id provided     | File path to the collection json
 `doc-path`            | d        | yes                   | File path to swagger or openapi doc
 `api-key`             | k        | if id provided        | Postman API Key
 `push`                | p        | no                    | Push updated collection back to postman cloud
 `clean-up`            | c        | no                    | Delete artifacts created during process; only works with push and collection id
+`run-newman`          | rn       | no                    | Will run newman right after up applying tests
+`bail`                | b        | use with run newman   | Will fail if newman tests fail
