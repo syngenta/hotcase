@@ -42,8 +42,9 @@ commands:
             - run: aws cloudfront create-invalidation --distribution-id E38VEFEW0CRHJD --paths "/*"
     npm-deploy:
         steps:
-            - run: echo "//registry.npmjs.com/:_authToken=$NPM_TOKEN" > .npmrc
             - run: npm version $CIRCLE_TAG --allow-same-version --no-git-tag-version
+            - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            - run: cat .npmrc
             - run: npm publish --access public
     slack-status:
         steps:
