@@ -36,10 +36,6 @@ commands:
             - run: npm run report -- --reporter=html
             - store_artifacts:
                 path: ./coverage
-    publish-results:
-        steps:
-            - run: aws s3 sync ./coverage s3://tools-test-reports.syndpe.com/$CIRCLE_PROJECT_REPONAME --delete
-            - run: aws cloudfront create-invalidation --distribution-id E38VEFEW0CRHJD --paths "/*"
     npm-deploy:
         steps:
             - run: npm version $CIRCLE_TAG --allow-same-version --no-git-tag-version
@@ -67,7 +63,6 @@ jobs:
             - node-test
             - node-report-lcov
             - node-report-html
-            - publish-results
             - sonarcloud/scan
             - slack-error
     install-build-deploy:
