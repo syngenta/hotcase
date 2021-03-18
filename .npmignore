@@ -1,11 +1,12 @@
+.github
+.circleci
 .scannerwork
 .gitignore
 .npmrc
 .nvmrc
-.github
-.circleci
 .tags
 *.tgz
+coverage
 package-lock.json
 README.md
 test
