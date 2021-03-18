@@ -80,9 +80,19 @@ class Postman {
     mapCollectionToSchema(mapping) {
         console.log('--MAPPING COLLECTION TO SCHEMA');
         for (const item of this._collection.item) {
-            const path = this._getPathFromCollection(item);
-            if (mapping[path]) {
-                this._writeTestsToCollection(item, mapping[path], path);
+            this._walkCollectionFolders(mapping, item);
+        }
+    }
+    _walkCollectionFolders(mapping, items) {
+        if (!items.request && items.item) {
+            this._walkCollectionFolders(mapping, items.item);
+        }
+        if (Array.isArray(items)) {
+            for (const item of items) {
+                const path = this._getPathFromCollection(item);
+                if (mapping[path]) {
+                    this._writeTestsToCollection(item, mapping[path], path);
+                }
             }
         }
     }
