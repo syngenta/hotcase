@@ -21,8 +21,8 @@ class Postman {
             console.log(`--USING BAIL: ${this._args.bail}`);
             const command = this._generateCommand();
             try {
-                await child_process.execSync(`newman run ${command}`, {stdio: 'inherit'});
-            } catch (error) {}
+                await child_process.execSync(`newman run ${command}`, { stdio: 'inherit' });
+            } catch (error) { }
         }
     }
     async findWorkspace() {
@@ -97,9 +97,14 @@ class Postman {
         }
     }
     _getPathFromCollection(item) {
-        const pathJoin = item.request.url.path.join('/');
-        const method = item.request.method.toLowerCase();
-        const path = `${method}:/${pathJoin}`;
+        let path = "";
+        if (item.request.url) {
+            const pathJoin = item.request.url.path.join('/');
+            const method = item.request.method.toLowerCase();
+            path = `${method}:/${pathJoin}`;
+        } else {
+            path = "undefined";
+        }
         return path;
     }
     _writeTestsToCollection(item, schema, path) {
@@ -107,7 +112,7 @@ class Postman {
         for (const event of item.event) {
             if (event.listen === 'test') {
                 const codes = [];
-                const {exec} = event.script;
+                const { exec } = event.script;
                 for (const code in schema) {
                     this._writeSchemaTest(exec, schema, code, path);
                     codes.push(parseInt(code, 10));
