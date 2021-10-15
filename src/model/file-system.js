@@ -12,7 +12,7 @@ exports.openJSONFile = async (file_name) => {
 
 exports.loadYaml = async (file_name) => {
     const file = await fs.readFileSync(`${process.cwd()}/${file_name}`, 'utf8');
-    return await yaml.load(file);
+    return yaml.load(file);
 };
 
 exports.deleteFile = async (file_path) => {
