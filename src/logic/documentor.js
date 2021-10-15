@@ -28,7 +28,7 @@ class Documentor {
                 this._mapping[mapping_key] = this._mapping[mapping_key] ? this._mapping[mapping_key] : {};
                 for (const code in this._schema.paths[path][method].responses) {
                     const {content} = this._schema.paths[path][method].responses[code];
-                    if (this._openapi && content){
+                    if (this._openapi && content) {
                         const {'application/json': app_json} = content;
                         this._mapping[mapping_key][code] = app_json.schema;
                     } else {
