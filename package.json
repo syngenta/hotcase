@@ -2,14 +2,14 @@
     "name": "@syngenta-digital/pdt",
     "author": "Paul Cruse, Enginering Lead Syngenta",
     "main": "src/index.js",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/syngenta-digital/pdt-node.git"
+        "url": "git+https://github.com/syngenta-digital/package-node-pdt.git"
     },
     "bugs": {
-        "url": "https://github.com/syngenta-digital/pdt-node/issues"
+        "url": "https://github.com/syngenta-digital/package-node-pdt/issues"
     },
     "bin": {
         "pdt": "bin/pdt"
