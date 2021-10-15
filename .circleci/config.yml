@@ -1,6 +1,5 @@
 version: 2.1
 orbs:
-    slack: circleci/slack@3.4.2
     sonarcloud: sonarsource/sonarcloud@1.0.2
 commands:
     node-install:
@@ -41,15 +40,6 @@ commands:
             - run: echo "//registry.npmjs.com/:_authToken=$NPM_TOKEN" > .npmrc
             - run: cat .npmrc
             - run: npm publish --access public
-    slack-status:
-        steps:
-            - slack/status:
-                mentions: '${CIRCLE_USERNAME}, version=$CIRCLE_TAG'
-    slack-error:
-        steps:
-            - slack/status:
-                fail_only: true
-                mentions: '${CIRCLE_USERNAME}'
 jobs:
     install-build-test:
         docker:
@@ -62,7 +52,6 @@ jobs:
             - node-report-lcov
             - node-report-html
             - sonarcloud/scan
-            - slack-error
     install-build-deploy:
         docker:
             - image: node:12
@@ -70,7 +59,6 @@ jobs:
             - checkout
             - node-install
             - npm-deploy
-            - slack-status
 workflows:
     install-build-deploy:
         jobs:
