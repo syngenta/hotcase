@@ -27,12 +27,12 @@ class Documentor {
                 const mapping_key = `${method}:${path}`;
                 this._mapping[mapping_key] = this._mapping[mapping_key] ? this._mapping[mapping_key] : {};
                 for (const code in this._schema.paths[path][method].responses) {
-                        const { content } = this._schema.paths[path][method].responses[code];
-                    if (this._openapi && content) {
-                        const { 'application/json': app_json } = content;
+                    const {content} = this._schema.paths[path][method].responses[code];
+                    if (this._openapi && content){
+                        const {'application/json': app_json} = content;
                         this._mapping[mapping_key][code] = app_json.schema;
                     } else {
-                        const { schema } = this._schema.paths[path][method].responses[code];
+                        const {schema} = this._schema.paths[path][method].responses[code];
                         this._mapping[mapping_key][code] = schema;
                     }
                 }
