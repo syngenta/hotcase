@@ -7,14 +7,12 @@ exports.saveJSONFile = async (file_name, data) => {
 
 exports.openJSONFile = async (file_name) => {
     const file = await fs.readFileSync(`${process.cwd()}/${file_name}`, 'utf8');
-    const jsonObj = JSON.parse(file);
-    return jsonObj;
+    return JSON.parse(file);
 };
 
 exports.loadYaml = async (file_name) => {
     const file = await fs.readFileSync(`${process.cwd()}/${file_name}`, 'utf8');
-    const ymlObj = await yaml.load(file);
-    return ymlObj;
+    return await yaml.load(file);
 };
 
 exports.deleteFile = async (file_path) => {

@@ -10,10 +10,9 @@ class Postman {
     _generateCommand() {
         const collection_url = `https://api.getpostman.com/collections/${this._args.collection_id}?apikey=${this._args.api_key}`;
         const environment_url = `https://api.getpostman.com/environments/${this._args.environment_id}?apikey=${this._args.api_key}`;
-        const command = this._args.bail
+        return this._args.bail
             ? `${collection_url} -e ${environment_url} --bail`
             : `${collection_url} -e ${environment_url}`;
-        return command;
     }
     async runNewman() {
         if (this._args.run_newman) {
@@ -97,7 +96,7 @@ class Postman {
         }
     }
     _getPathFromCollection(item) {
-        let path = "undefined";
+        let path = 'undefined';
         if (item.request && item.request.hasOwnProperty('url')) {
             const pathJoin = item.request.url.path.join('/');
             const method = item.request.method.toLowerCase();
