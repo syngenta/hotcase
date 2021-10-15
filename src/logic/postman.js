@@ -97,9 +97,12 @@ class Postman {
         }
     }
     _getPathFromCollection(item) {
-        const pathJoin = item.request.url.path.join('/');
-        const method = item.request.method.toLowerCase();
-        const path = `${method}:/${pathJoin}`;
+        let path = "undefined";
+        if (item.request && item.request.hasOwnProperty('url')) {
+            const pathJoin = item.request.url.path.join('/');
+            const method = item.request.method.toLowerCase();
+            path = `${method}:/${pathJoin}`;
+        }
         return path;
     }
     _writeTestsToCollection(item, schema, path) {
