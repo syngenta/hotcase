@@ -20,7 +20,7 @@
         "report": "nyc report"
     },
     "dependencies": {
-        "axios": "^0.21.1",
+        "axios": "^0.23.0",
         "js-yaml": "^4.1.0",
         "json-schema-ref-parser": "^9.0.9",
         "minimist": "^1.2.5",
