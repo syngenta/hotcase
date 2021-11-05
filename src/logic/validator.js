@@ -27,6 +27,7 @@ class Validator {
         this._checkNameArgments();
         this._checkOpenApiArgments();
         this._checkApiArgments();
+        this._checkProxyArguments();
         this._checkCleanUpArgments();
         this.logErrors();
     }
@@ -64,6 +65,14 @@ class Validator {
         }
         if (this._args.push && !this._args.api_key) {
             this._errors.push('Please provide --api-key (-k) if you are providing --push (-p)');
+        }
+    }
+    _checkProxyArguments() {
+        if (!this._args.proxy.match(/(http.?:[\/]{2})/)) {
+            this._errors.push('Please provide a protocol for the proxy-server');
+        }
+        if (!this._args.proxy.match(/[:]\d{1,5}/)) {
+            this._errors.push('Please provide a port for the proxy-server');
         }
     }
     _checkCleanUpArgments() {
