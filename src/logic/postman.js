@@ -24,6 +24,12 @@ class Postman {
             } catch (error) {}
         }
     }
+    async setProxyServer() {
+        if (this._args.proxy) {
+            console.log('--SETTING PROXYSERVER');
+            await postmanApi.setProxyServer(this._args.proxy);
+        }
+    }
     async findWorkspace() {
         if (this._args.workspace_name) {
             console.log('--FINDING WORKSPACE');

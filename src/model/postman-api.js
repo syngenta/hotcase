@@ -1,5 +1,6 @@
 const fs = require('fs');
-const axios = require('axios');
+let axios = require('axios');
+const HttpsProxyAgent = require('https-proxy-agent');
 
 exports.getWorkspaces = async (api_key) => {
     const options = {
@@ -62,6 +63,18 @@ exports.updateCollection = async (api_key, collection_id, collection) => {
         await axios(options);
     } catch (error) {
         console.error('There was a problem with your request to POSTMAN API; check your API Key');
+        console.error(error);
+        throw error;
+    }
+};
+
+exports.setProxyServer = async (proxyServer) => {
+    const url = new URL(proxyServer);
+    const httpsAgent = await new HttpsProxyAgent({host: url.hostname, port: url.port});
+    try {
+        axios = await axios.create({httpsAgent});
+    } catch (error) {
+        console.error('There was a problem at setting the proxy-server');
         console.error(error);
         throw error;
     }
