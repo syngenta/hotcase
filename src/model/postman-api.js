@@ -1,5 +1,5 @@
 const fs = require('fs');
-let axios = require('axios');
+const axios = require('axios');
 const HttpsProxyAgent = require('https-proxy-agent');
 
 exports.getWorkspaces = async (api_key) => {
@@ -72,7 +72,7 @@ exports.setProxyServer = async (proxyServer) => {
     const url = new URL(proxyServer);
     const httpsAgent = await new HttpsProxyAgent({host: url.hostname, port: url.port});
     try {
-        axios = await axios.create({httpsAgent});
+        axios.defaults.httpsAgent = httpsAgent;
     } catch (error) {
         console.error('There was a problem at setting the proxy-server');
         console.error(error);

@@ -68,6 +68,7 @@ class Validator {
         }
     }
     _checkProxyArguments() {
+        if (!this._args.proxy) return;
         if (!this._args.proxy.match(/(http.?:[\/]{2})/)) {
             this._errors.push('Please provide a protocol for the proxy-server');
         }
