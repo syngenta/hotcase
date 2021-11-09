@@ -17,6 +17,7 @@ const _runPostManWrites = async (postman) => {
 };
 
 const _runPostManSearches = async (postman) => {
+    await postman.setProxyServer();
     await postman.findWorkspace();
     await postman.findCollection();
     await postman.findEnvironment();

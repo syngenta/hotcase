@@ -13,7 +13,8 @@ class Args {
             push: args['push'] || args.p,
             clean: args['clean-up'] || args.c,
             bail: args['bail'] || args.b,
-            run_newman: args['run-newman'] || args.rn
+            run_newman: args['run-newman'] || args.rn,
+            proxy: args['proxy-server'] || args.ps
         };
     }
     get collection_id() {
@@ -63,6 +64,12 @@ class Args {
     }
     get run_newman() {
         return Boolean(this._args.run_newman);
+    }
+    get proxy() {
+        return this._args.proxy;
+    }
+    set proxy(proxy) {
+        this._args.proxy = proxy;
     }
     get docs() {
         return this._args.docs;
