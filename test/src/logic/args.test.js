@@ -18,6 +18,7 @@ describe('Test Args Class', () => {
                 collection_id: '1111-222-333',
                 collection_file: '/file/test/file',
                 docs: 'docs/test/dock',
+                proxy: undefined,
                 api_key: 'some-key',
                 push: true,
                 clean: true
@@ -79,6 +80,7 @@ describe('Test Args Class', () => {
                 collection_file: '/file/test/file',
                 docs: 'docs/test/dock',
                 api_key: 'some-key',
+                proxy: undefined,
                 push: true,
                 clean: true
             });
