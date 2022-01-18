@@ -20,7 +20,7 @@
         "report": "nyc report"
     },
     "dependencies": {
-        "axios": "^0.24.0",
+        "axios": "^0.25.0",
         "https-proxy-agent": "^5.0.0",
         "js-yaml": "^4.1.0",
         "json-schema-ref-parser": "^9.0.9",
