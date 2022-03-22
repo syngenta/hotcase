@@ -64,8 +64,8 @@ workflows:
         jobs:
             - install-build-deploy:
                 context:
-                    - sonarcloud-token
-                    - npm-org-token
+                    - shared-sonarcloud-token
+                    - shared-npm-org-token
                 filters:
                     tags:
                         only: /.*/
@@ -75,8 +75,8 @@ workflows:
         jobs:
             - install-build-test:
                 context:
-                    - sonarcloud-token
-                    - npm-org-token
+                    - shared-sonarcloud-token
+                    - shared-npm-org-token
                 filters:
                     tags:
                         ignore: /.*/
