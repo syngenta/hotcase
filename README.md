@@ -1,4 +1,4 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=syngenta-digital_pdt-node&metric=alert_status)](https://sonarcloud.io/dashboard?id=syngenta-digital_pdt-node) [![CircleCI](https://circleci.com/gh/syngenta-digital/package-node-pdt.svg?style=shield)](https://circleci.com/gh/syngenta-digital/package-node-pdt)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=syngenta-digital_pdt-node&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=syngenta-digital_pdt-node) [![CircleCI](https://circleci.com/gh/syngenta-digital/package-node-pdt.svg?style=shield)](https://circleci.com/gh/syngenta-digital/package-node-pdt)
 
 # Postman Documentation Tester (pdt)
 
