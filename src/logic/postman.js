@@ -105,10 +105,20 @@ class Postman {
         let path = 'undefined';
         if (item.request && item.request.hasOwnProperty('url')) {
             const pathJoin = item.request.url.path.join('/');
+            const pathClean = this._cleanPath(pathJoin);
             const method = item.request.method.toLowerCase();
-            path = `${method}:/${pathJoin}`;
+            path = `${method}:/${pathClean}`;
         }
         return path;
+    }
+    _cleanPath(path) {
+      const parts = path.split("/");
+      for (let i = 0; i < parts.length; i++) {
+        if (parts[i][0] === ":") {
+          parts[i] = parts[i].replace(":","{") + "}";
+        }
+      }
+      return parts.join("/");
     }
     _writeTestsToCollection(item, schema, path) {
         item.event = !item.event ? [this._getEmptyTestEvent()] : item.event;
