@@ -22,23 +22,15 @@ commands:
                 path: ./coverage/reports
             - store_artifacts:
                 path: ./coverage
-    node-report-lcov:
-        node-report-lcov:
+    node-report:
         steps:
-            - run: npm run report -- --reporter=lcov
-            - store_artifacts:
-                path: ./coverage
-    node-report-html:
-        node-report-lcov:
-        steps:
-            - run: npm run report -- --reporter=html
+            - run: npm run report
             - store_artifacts:
                 path: ./coverage
     npm-deploy:
         steps:
+            - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
             - run: npm version $CIRCLE_TAG --allow-same-version --no-git-tag-version
-            - run: echo "//registry.npmjs.com/:_authToken=$NPM_TOKEN" > .npmrc
-            - run: cat .npmrc
             - run: npm publish --access public
 jobs:
     install-build-test:
@@ -49,8 +41,7 @@ jobs:
             - node-install
             - node-linter
             - node-test
-            - node-report-lcov
-            - node-report-html
+            - node-report
             - sonarcloud/scan
     install-build-deploy:
         docker:

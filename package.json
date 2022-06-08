@@ -17,7 +17,7 @@
     "scripts": {
         "lint": "eslint src/**",
         "test": "unittest=true nyc mocha --recursive",
-        "report": "nyc report"
+        "report": "nyc report --reporter=lcov"
     },
     "dependencies": {
         "axios": "^0.27.2",
