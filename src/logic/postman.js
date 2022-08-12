@@ -7,13 +7,6 @@ class Postman {
         this._args = args;
         this._collection = null;
     }
-    _generateCommand() {
-        const collection_url = `https://api.getpostman.com/collections/${this._args.collection_id}?apikey=${this._args.api_key}`;
-        const environment_url = `https://api.getpostman.com/environments/${this._args.environment_id}?apikey=${this._args.api_key}`;
-        return this._args.bail
-            ? `${collection_url} -e ${environment_url} --bail`
-            : `${collection_url} -e ${environment_url}`;
-    }
     async runNewman() {
         if (this._args.run_newman) {
             console.log('--RUNNING NEWMAN');
@@ -94,11 +87,16 @@ class Postman {
         }
         if (Array.isArray(items)) {
             for (const item of items) {
-                const path = this._getPathFromCollection(item);
-                if (mapping[path]) {
-                    this._writeTestsToCollection(item, mapping[path], path);
-                }
+                this._updateCollection(mapping.item);
             }
+        } else {
+            this._updateCollection(mapping, items);
+        }
+    }
+    _updateCollection(mapping, item) {
+        const path = this._getPathFromCollection(item);
+        if (mapping[path]) {
+            this._writeTestsToCollection(item, mapping[path], path);
         }
     }
     _getPathFromCollection(item) {
@@ -112,13 +110,13 @@ class Postman {
         return path;
     }
     _cleanPath(path) {
-      const parts = path.split("/");
-      for (let i = 0; i < parts.length; i++) {
-        if (parts[i][0] === ":") {
-          parts[i] = parts[i].replace(":","{") + "}";
+        const parts = path.split('/');
+        for (let i = 0; i < parts.length; i++) {
+            if (parts[i][0] === ':') {
+                parts[i] = parts[i].replace(':', '{') + '}';
+            }
         }
-      }
-      return parts.join("/");
+        return parts.join('/');
     }
     _writeTestsToCollection(item, schema, path) {
         item.event = !item.event ? [this._getEmptyTestEvent()] : item.event;
@@ -168,6 +166,13 @@ class Postman {
             let starting_point = exec.indexOf(test_case);
             exec.splice(starting_point, num_lines);
         }
+    }
+    _generateCommand() {
+        const collection_url = `https://api.getpostman.com/collections/${this._args.collection_id}?apikey=${this._args.api_key}`;
+        const environment_url = `https://api.getpostman.com/environments/${this._args.environment_id}?apikey=${this._args.api_key}`;
+        return this._args.bail
+            ? `${collection_url} -e ${environment_url} --bail`
+            : `${collection_url} -e ${environment_url}`;
     }
 }
 

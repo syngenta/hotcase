@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const minimist = require('minimist');
 const Args = require('./logic/args');
 const Postman = require('./logic/postman');
