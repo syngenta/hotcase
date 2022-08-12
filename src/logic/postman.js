@@ -119,13 +119,11 @@ class Postman {
         return parts.join('/');
     }
     _writeTestsToCollection(item, schema, path) {
-        console.log('_writeTestsToCollection');
         item.event = !item.event ? [this._getEmptyTestEvent()] : item.event;
         for (const event of item.event) {
             if (event.listen === 'test') {
                 const codes = [];
                 const {exec} = event.script;
-                console.log('exec', exec);
                 for (const code in schema) {
                     this._writeSchemaTest(exec, schema, code, path);
                     codes.push(parseInt(code, 10));
