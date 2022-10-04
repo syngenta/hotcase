@@ -87,7 +87,7 @@ class Postman {
         }
         if (Array.isArray(items)) {
             for (const item of items) {
-                this._updateCollection(mapping.item);
+                this._updateCollection(mapping, item);
             }
         } else {
             this._updateCollection(mapping, items);
