@@ -20,7 +20,7 @@
         "report": "nyc report --reporter=lcov"
     },
     "dependencies": {
-        "axios": "^0.27.2",
+        "axios": "^1.0.0",
         "https-proxy-agent": "^5.0.1",
         "js-yaml": "^4.1.0",
         "json-schema-ref-parser": "^9.0.9",
