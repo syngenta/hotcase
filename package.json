@@ -2,7 +2,7 @@
     "name": "@syngenta-digital/pdt",
     "author": "Paul Cruse, Enginering Lead Syngenta",
     "main": "src/index.js",
-    "version": "1.0.4",
+    "version": "1.0.7",
     "license": "Apache-2.0",
     "repository": {
         "type": "git",
